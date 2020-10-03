@@ -12,13 +12,13 @@
             <a class="navbar-brand" href="#">@yield('title')</a>
             <ul class="navbar-nav ">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Pedidos</a>
+                    <a class="nav-link" href="{{ route('product.index') }}">Pedidos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('category.index') }}">Categorias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Produtos</a>
+                    <a class="nav-link" href="{{ route('product.index') }}">Produtos</a>
                 </li>
             </ul>
         </nav>
