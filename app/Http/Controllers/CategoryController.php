@@ -45,9 +45,10 @@ class CategoryController extends Controller
 
         $category->name = $request->name;
 
-        $category->save();
-
-        return redirect()->route('category.index')->with(['success' =>'Categoria salva com sucesso!']);
+        if($category->save()){
+            return redirect()->route('category.index')->with(['success' =>'Categoria salva com sucesso!']);
+        }
+        return redirect()->route('category.index')->with(['fail' =>'Ocorreu algum erro ao tentar Salvar!']);        
     }
 
     /**
@@ -58,7 +59,9 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('category.show',[
+            'category' => $category
+        ]);
     }
 
     /**
@@ -69,7 +72,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit',[
+            'category' => $category
+        ]);
     }
 
     /**
@@ -81,7 +86,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => ['required','max:255']
+        ]);
+
+        $category->name = $request->name;
+
+        if($category->save()){
+            return redirect()->route('category.index')->with(['success' =>'Categoria salva com sucesso!']);
+        }
+        return redirect()->route('category.index')->with(['fail' =>'Ocorreu algum erro ao tentar Salvar Categoria: {$category->name}!']);  
     }
 
     /**
@@ -92,6 +106,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+      
+        if($category->delete()){
+            return redirect()->route('category.index')->with(['success' =>'Categoria Removida com Sucesso!']);
+        }
+        return redirect()->route('category.index')->with(['fail' =>'Impossível remover categoria {$category->name}!']);  
+
     }
 }
