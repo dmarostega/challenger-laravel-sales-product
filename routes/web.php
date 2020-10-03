@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::resource('user', 'UserController');
+Route::resource('category', 'CategoryController');
+// Route::resource('Product', 'ProductController');
+
 Route::get('/', function () {
     return view('index');
 });
