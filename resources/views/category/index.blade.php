@@ -34,6 +34,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th scope="col">Code</th>
                         <th class="w-50 "scope="col">Name</th>
                         <th scope="col">Created</th>
                         <th scope="col">Updated</th>
@@ -43,6 +44,7 @@
                     <tbody>
                         @foreach($categories as $category)
                         <tr>
+                            <td >{{ $category->id }}</td>
                             <td >{{ $category->name }}</td>
                             <td>{{ date('d/m/Y', strtotime($category->created_at)) }}</td>
                             <td>{{ date('d/m/Y', strtotime($category->updated_at)) }}</td>

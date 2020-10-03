@@ -1,6 +1,8 @@
 @extends('_layouts.template')
 
 @section('content')
-    <h3>Ola Mundo</h3>
+    <div class="container text-center " style="height: 80vh">        
+        <h1 style="display: block"><span class="align-middle">Is My Challenger to MultiPlier</span></h1>
+    </div>
 @endsection
 

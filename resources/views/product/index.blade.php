@@ -34,7 +34,10 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th scope="col">{{ __('Code') }}</th>
                         <th class="w-50 "scope="col">Name</th>
+                        <th scope="col">{{ __('Price') }}</th>
+                        <th scope="col">{{ __('Quantity') }}</th>
                         <th scope="col">Created</th>
                         <th scope="col">Updated</th>
                         <th class="w-25" scope="col"></th>
@@ -43,7 +46,10 @@
                     <tbody>
                         @foreach($produts as $product)
                         <tr>
+                            <td >{{ $product->id }}</td>
                             <td >{{ $product->name }}</td>
+                            <td >{{ $product->price }}</td>
+                            <td >{{ $product->quantity }}</td>
                             <td>{{ date('d/m/Y', strtotime($product->created_at)) }}</td>
                             <td>{{ date('d/m/Y', strtotime($product->updated_at)) }}</td>
                             <td>
