@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::resource('category', 'CategoryController');
 Route::resource('product', 'ProductController');
 Route::resource('order', 'OrderController');
+Route::resource('cart', 'CartController');
+
+Route::post('cart/add/{cart?}','CartController@addProduct')->name('cart.add');
+Route::delete('cart/remove/{cartHasProducts}','CartController@removeProduct')->name('cart.remove.item');
 
 Route::get('/', function () {
     return view('index');
