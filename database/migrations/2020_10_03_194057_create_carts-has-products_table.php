@@ -18,10 +18,12 @@ class CreateCartsHasProductsTable extends Migration
             $table->unsignedBigInteger('cart_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
+            $table->softDeletes();
+
             $table->timestamps();
 
-            $table->foreign('cart_id')->references('id')->on('carts');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('CASCADE');;
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');;
 
         });
     }

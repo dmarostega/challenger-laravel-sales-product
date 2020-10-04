@@ -72,10 +72,6 @@ class CartController extends Controller
                                 );
     }
 
-    public function finalizeOrder(Request $request,Cart $cart){
-
-    }
-
     /**
      * Display a listing of the resource.
      *

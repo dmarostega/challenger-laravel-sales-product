@@ -17,7 +17,7 @@
                     <p class="card-text"><strong>Name </strong>{{ $product->name }}</p>
                     <p class="card-text"><strong>Price </strong>{{ $product->price }}</p>
                     <p class="card-text"><strong>Quantity in Stock </strong>{{ $product->quantity }}</p>
-                    <p class="card-text"><strong>Category </strong>{{ $category->name }}</p>
+                    <p class="card-text" @if($category->deleted_at !== null) style="text-decoration: line-through; color:red;" @endif><strong>Category </strong>{{ $category->name }}</p>
 
                 </div>               
                 <div class="card-footer">

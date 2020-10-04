@@ -35,7 +35,7 @@
             <select id="category_id" class="custom-select" name="category_id">                
                 <option>Select</option>
                 @foreach($categories as $category)
-                   <option value="{{ $category->id }}"  @if($category->id === $product->Category()->first()->id) selected @endif    >{{ $category->name }}</option>
+                   <option value="{{ $category->id }}"  @if($category->deleted_at !== null && $category->id === $product->Category()->first()->id) selected @endif    >{{ $category->name }}</option>
                 @endforeach
             </select>
             @error('category_id')

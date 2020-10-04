@@ -123,6 +123,5 @@ class OrderController extends Controller
             return redirect()->route('order.index')->with(['success'=>"Ordem n. {$order->id} excluída com sucesso!"]);
         }
         return redirect()->route('order.index')->with(['fail'=>'Excusão não permitda!']);
-
     }
 }

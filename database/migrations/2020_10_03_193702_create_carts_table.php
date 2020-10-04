@@ -17,8 +17,14 @@ class CreateCartsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->timestamp('done')->nullable();
+            $table->softDeletes();
+
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
         });
+
+
     }
 
     /**

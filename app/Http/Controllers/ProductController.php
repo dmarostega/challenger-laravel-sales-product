@@ -71,7 +71,7 @@ class ProductController extends Controller
     {
         return view('product.show',[
             'product' => $product,
-            'category' => $product->Category()->first()
+            'category' => $product->Category()->withTrashed()->first()
         ]);
     }
 
