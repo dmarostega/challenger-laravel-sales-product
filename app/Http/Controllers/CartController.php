@@ -12,24 +12,30 @@ use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
-    public function addProduct(Request $request, Cart $cart = null){
+    public function addProduct(Request $request, Cart $cart){
 
         $validator = Validator::make($request->all(), [
             'product_id' => ['required','integer'],
-            //     'quantity' => ['required','integer']
+            'quantity' => ['required','integer']
         ]);
 
         if($validator->fails()){
             return redirect()->route('order.create')
                             ->withErrors($validator)
                             ->with(['cart' => $cart,
+                            'product_id' => $request->product_id,
+                            'quantity' => $request->quantity,
                             'products' => Product::all()]);
         }
 
-        if($cart === null){
-            $cart = new Cart();
-            $cart->user_id = User::find(    Auth::user()->id  )->first()->id;
-            $cart->save();
+        $quantity_availabilly =  Product::where('id','=',$request->product_id)->first()->quantity;
+
+        if($request->quantity  > $quantity_availabilly){
+            return redirect()->route('order.create')
+                            ->with(['cart' => $cart,
+                            'product_id' => $request->product_id,
+                            'quantity' => $request->quantity,
+                            'products' => Product::all()])->withErrors(['quantity' => 'Unavailable Quantity. Availability of only: ' . $quantity_availabilly]);
         }
 
         //1. se já tem item adicionado no carrinho... 
@@ -47,8 +53,12 @@ class CartController extends Controller
         $new_item->save();
 
             return redirect()->route('order.create')
-                    ->with(['cart' => $cart,
-                    'products' => Product::all()]);
+                    ->with([
+                            'cart' => $cart,
+                            'product_id' => $request->product_id,
+                            'quantity' => $request->quantity,
+                            'products' => Product::all()
+                        ]);
     }
 
     public function removeProduct(Request $request, CartHasProducts $cartHasProducts){
@@ -56,11 +66,16 @@ class CartController extends Controller
         $cartHasProducts->delete();
 
         return redirect()->route('order.create')
-                                ->with(['cart' => $cart,
-                                'products' => Product::all()]);
+                                ->with([
+                                    'cart' => $cart,
+                                    'products' => Product::all()]
+                                );
     }
 
-    
+    public function finalizeOrder(Request $request,Cart $cart){
+
+    }
+
     /**
      * Display a listing of the resource.
      *

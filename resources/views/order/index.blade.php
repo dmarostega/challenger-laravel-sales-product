@@ -38,22 +38,19 @@
                         <th scope="col">{{ __('Cart') }}</th>
                         <th scope="col">{{ __('Date') }}</th>
                         <th scope="col">{{ __('Value') }}</th>                       
-                        <th class="w-25" scope="col">{{ __('Actions') }}</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                         @foreach($orders as $order)
                         <tr>
                             <td >{{ $order->id }}</td>
-                            <td >{{ $order->name }}</td>
-                            <td >{{ $order->price }}</td>
-                            <td >{{ $order->quantity }}</td>
-                            <td>{{ date('d/m/Y', strtotime($order->created_at)) }}</td>
-                            <td>{{ date('d/m/Y', strtotime($order->updated_at)) }}</td>
+                            <td >{{ $order->cart_id }}</td>
+                            <td>{{ date('d/m/Y H:i:s', strtotime($order->created_at)) }}</td>
+                            <td >{{ number_format($order->Cart()->first()->TotalValue(),2,',','.') }}</td>
                             <td>
                                 <div class="float-right">
-                                    <a class="btn btn-sm btn-secondary" href="{{ route('order.show',['order'=>$order->id]) }}">View</a>
-                                    <a class="btn btn-sm btn-primary" href="{{ route('order.edit',['order'=>$order->id]) }}">Edit</a>
+                                    <a class="btn btn-sm btn-secondary" href="{{ route('order.show',['order'=>$order->id]) }}">View</a>                                    
                                     <form style="display: inline-block" action="{{ route('order.destroy',['order'=>$order->id]) }}" method="post">
                                         @csrf
                                         @method('delete')

@@ -48,7 +48,7 @@
                         <tr>
                             <td >{{ $product->id }}</td>
                             <td >{{ $product->name }}</td>
-                            <td >{{ $product->price }}</td>
+                            <td >{{ number_format($product->price,2,',','.') }}</td>
                             <td >{{ $product->quantity }}</td>
                             <td>{{ date('d/m/Y', strtotime($product->created_at)) }}</td>
                             <td>{{ date('d/m/Y', strtotime($product->updated_at)) }}</td>

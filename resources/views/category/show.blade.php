@@ -32,6 +32,13 @@
     </div>
    <div class="row justify-content-center ">
        <div class="col-6  mb-3">
+            <a class="btn btn-sm btn-primary" href="{{ route('category.edit',['category'=>$category->id]) }}">Edit</a>
+            <form style="display: inline-block" action="{{ route('category.destroy',['category'=>$category->id]) }}" method="post">
+                @csrf
+                @method('delete')
+                <input type="hidden" name="category" value="{{$category->id }}">
+                <input class="btn btn-sm btn-danger" type="submit" value="Remove">
+            </form>
            <a href="{{ route('category.index') }}" class="btn btn-sm btn-secondary float-right"> Back </a>
        </div>
    </div>

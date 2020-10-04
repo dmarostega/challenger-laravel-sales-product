@@ -36,6 +36,13 @@
     </div>
    <div class="row justify-content-center ">
        <div class="col-6  mb-3">
+            <form style="display: inline-block" action="{{ route('product.destroy',['product'=>$product->id]) }}" method="post">
+                @csrf
+                @method('delete')
+                <input type="hidden" name="product" value="{{$product->id }}">
+                <input class="btn btn-sm btn-danger" type="submit" value="Remove">
+            </form>
+            <a class="btn btn-sm btn-primary" href="{{ route('product.edit',['product'=>$product->id]) }}">Edit</a>
            <a href="{{ route('product.index') }}" class="btn btn-sm btn-secondary float-right"> Back </a>
        </div>
    </div>
