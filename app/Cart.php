@@ -21,7 +21,8 @@ class Cart extends Model
         $sum = 0;
 
         foreach($this->hasMany(CartHasProducts::class)->get() as $item){
-            $sum += Product::find($item->product_id)->price * $item->quantity;
+            // var_dump(DB::table('products')->where('id','=',$item->product_id)->first() );
+            $sum += DB::table('products')->where('id','=',$item->product_id)->first()->price * $item->quantity;
         }
 
         return $sum;

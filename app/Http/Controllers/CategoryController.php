@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Helpers\Log;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -46,6 +53,8 @@ class CategoryController extends Controller
         $category->name = $request->name;
 
         if($category->save()){
+
+            Log::create($category, 'name');
             return redirect()->route('category.index')->with(['success' =>'Categoria salva com sucesso!']);
         }
         return redirect()->route('category.index')->with(['fail' =>'Ocorreu algum erro ao tentar Salvar!']);        
@@ -93,6 +102,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
 
         if($category->save()){
+            Log::edit($category, 'name');
             return redirect()->route('category.index')->with(['success' =>'Categoria salva com sucesso!']);
         }
         return redirect()->route('category.index')->with(['fail' =>'Ocorreu algum erro ao tentar Salvar Categoria: {$category->name}!']);  
@@ -105,9 +115,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)
-    {
-      
+    {      
         if($category->delete()){
+            Log::remove($category, 'name');
             return redirect()->route('category.index')->with(['success' =>'Categoria Removida com Sucesso!']);
         }
         return redirect()->route('category.index')->with(['fail' =>'Impossível remover categoria {$category->name}!']);  

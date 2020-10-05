@@ -16,24 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 // Route::resource('user', 'UserController');
 
-Route::get('testmail',function(){
-    Mail::send('emails.test',[
-        'test1'=>'Eloquent'
-    ],function($m){
-        $m->from('orders@rockcode.net', 'Diogo');
-        $m->to('orders@rockcode.net');
-    });
 
-    return view('emails.order-shipped');
-});
+Route::resource('category', 'CategoryController');
+Route::resource('product', 'ProductController');
+Route::resource('order', 'OrderController');
+Route::resource('cart', 'CartController');
 
-Route::resource('category', 'CategoryController')->middleware('auth');
-Route::resource('product', 'ProductController')->middleware('auth');
-Route::resource('order', 'OrderController')->middleware('auth');
-Route::resource('cart', 'CartController')->middleware('auth');
-
-Route::post('cart/add/{cart}','CartController@addProduct')->name('cart.add')->middleware('auth');
-Route::delete('cart/remove/{cartHasProducts}','CartController@removeProduct')->name('cart.remove.item')->middleware('auth');
+Route::post('cart/add/{cart}','CartController@addProduct')->name('cart.add');
+Route::delete('cart/remove/{cartHasProducts}','CartController@removeProduct')->name('cart.remove.item');
 
 Route::get('/', function () {
     return view('index');

@@ -30,7 +30,7 @@
                                 <tbody>
                                     @foreach($order->Cart()->first()->Itens()->get() as $item)
                                     @php
-                                    $product = $item->Product()->first();     
+                                        $product = $item->Product()->withTrashed()->first();  
                                     @endphp
                                     <tr>
                                         <td>{{ $product->id .', '.$product->name }}</td>

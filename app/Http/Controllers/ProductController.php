@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
+use App\Helpers\Log;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -56,6 +61,7 @@ class ProductController extends Controller
 
        
         if($product->save()){
+            Log::create($product);
             return redirect()->route('product.index')->with(['success' =>'Produto salvo com sucesso!']);
         }
         return redirect()->route('product.index')->with(['fail' =>'Ocorreu algum erro ao tentar Salvar!']);
@@ -113,6 +119,7 @@ class ProductController extends Controller
 
     
         if($product->save()){
+            Log::edit($product);
             return redirect()->route('product.index')->with(['success' =>'Produto salvo com sucesso!']);
         }
         return redirect()->route('product.index')->with(['fail' =>'Ocorreu algum erro ao tentar Salvar!']);
@@ -127,6 +134,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if($product->delete()){
+            Log::remove($product);
             return redirect()->route('product.index')->with(['success' =>'Categoria Removida com Sucesso!']);
         }
         return redirect()->route('product.index')->with(['fail' =>'Impossível remover categoria {$product->name}!']);  

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\CartHasProducts;
+use App\Helpers\Log;
 use App\Product;
 use App\User;
 use Illuminate\Http\Request;
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function addProduct(Request $request, Cart $cart){
 
         $validator = Validator::make($request->all(), [
@@ -49,8 +55,10 @@ class CartController extends Controller
         $new_item->product_id = $request->product_id;
         //2. ... Atribui a quantidade
         $new_item->quantity = $request->quantity;
-
         $new_item->save();
+
+        Log::add($new_item->Product()->first());
+       // Log::in("CART[{$cart->id}]", "Adicionou produto  " .  $new_item->Product()->first()->name);
 
             return redirect()->route('order.create')
                     ->with([
@@ -64,6 +72,8 @@ class CartController extends Controller
     public function removeProduct(Request $request, CartHasProducts $cartHasProducts){
         $cart = $cartHasProducts->Cart()->first();
         $cartHasProducts->delete();
+
+        Log::remove($cartHasProducts->Product()->first(), 'name');
 
         return redirect()->route('order.create')
                                 ->with([
@@ -79,7 +89,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        redirect()->route('order.index')->with(['fail', 'Action disabled!']);
     }
 
     /**
@@ -89,7 +99,7 @@ class CartController extends Controller
      */
     public function create()
     {
-        //
+        redirect()->route('order.index')->with(['fail', 'Action disabled!']);
     }
 
     /**
@@ -100,7 +110,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        redirect()->route('order.index')->with(['fail', 'Action disabled!']);
     }
 
     /**
@@ -111,7 +121,7 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
-        //
+        redirect()->route('order.index')->with(['fail', 'Action disabled!']);
     }
 
     /**
@@ -122,7 +132,7 @@ class CartController extends Controller
      */
     public function edit(Cart $cart)
     {
-        //
+        redirect()->route('order.index')->with(['fail', 'Action disabled!']);
     }
 
     /**
@@ -134,7 +144,7 @@ class CartController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
-        //
+        redirect()->route('order.index')->with(['fail', 'Action disabled!']);
     }
 
     /**
@@ -145,6 +155,6 @@ class CartController extends Controller
      */
     public function destroy(Cart $cart)
     {
-        //
+        redirect()->route('order.index')->with(['fail', 'Action disabled!']);        
     }
 }

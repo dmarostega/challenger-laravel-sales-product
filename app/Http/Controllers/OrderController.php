@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Cart;
+use App\Helpers\Log;
 use App\User;
 use App\Product;
 use Carbon\Carbon;
@@ -16,6 +17,11 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -42,6 +48,7 @@ class OrderController extends Controller
             $cart = new Cart();
             $cart->user_id = User::find(    Auth::user()->id  )->first()->id;
             $cart->save();
+            Log::create($cart,'');
         }        
 
         return view('order.create',[
@@ -67,7 +74,7 @@ class OrderController extends Controller
             $order->cart_id = $cart->id;
             $order->user_id = $cart->user_id;
             $order->save();
-
+            Log::create($order,"(Cart n {cart->id})" );
             foreach($cart->Itens()->get() as $item){
                $product = Product::where('id','=',$item->product_id)->first();
                $product->quantity -= $item->quantity;
@@ -110,18 +117,20 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        if($order->Cart()->first()->user_id === Auth::user()->id){
+        if($order->Cart()->first()->user_id === Auth::user()->id && $order->delete()){
             $cart = $order->Cart()->first();
 
             foreach(  $cart->Itens()->get() as $item){
                 $product = Product::where('id','=',$item->product_id)->first();
-                $product->quantity += $item->quantity;
-                $product->save();
-             }   
+                if( $product){
+                    $product->quantity += $item->quantity;
+                    $product->save();   
+                }
+            }   
 
-            $order->delete();
+            Log::remove($order,"(Cart n {cart->id})" );
             return redirect()->route('order.index')->with(['success'=>"Ordem n. {$order->id} excluída com sucesso!"]);
         }
-        return redirect()->route('order.index')->with(['fail'=>'Excusão não permitda!']);
+        return redirect()->route('order.index')->with(['fail'=>'Excusão não permitida!']);
     }
 }
