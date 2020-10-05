@@ -6,6 +6,15 @@
     <div class="row">
         <div class="col-6 mt-5">
             <h1>@yield('subtitle')</h1>
+            <p class="ml-1">
+                Viewing
+                @if($products->hasMorePages())
+                    {{ $products->count() }}  
+                @else
+                    {{$products->total()  }} 
+                @endif
+                    to  {{ $products->total() }}    
+            </p>         
         </div>
         <div class="col-6 mt-5">
             <a class="btn btn-primary float-right" href="{{ route('product.create') }}" >Create</a>
@@ -44,7 +53,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach($produts as $product)
+                        @foreach($products as $product)
                         <tr>
                             <td >{{ $product->id }}</td>
                             <td >{{ $product->name }}</td>
@@ -54,18 +63,19 @@
                             <td>{{ date('d/m/Y', strtotime($product->updated_at)) }}</td>
                             <td>
                                 <div class="float-right">
-                                    <a class="btn btn-sm btn-secondary" href="{{ route('product.show',['product'=>$product->id]) }}">View</a>
-                                    <a class="btn btn-sm btn-primary" href="{{ route('product.edit',['product'=>$product->id]) }}">Edit</a>
+                                    <a class="btn btn-sm btn-secondary" href="{{ route('product.show',['product'=>$product->id]) }}" title="View details this User">View</a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('product.edit',['product'=>$product->id]) }}" title="Edit this User">Edit</a>
                                     <form style="display: inline-block" action="{{ route('product.destroy',['product'=>$product->id]) }}" method="post">
                                         @csrf
                                         @method('delete')
                                         <input type="hidden" name="product" value="{{$product->id }}">
-                                        <input class="btn btn-sm btn-danger" type="submit" value="Remove">
+                                        <input class="btn btn-sm btn-danger" type="submit" value="X" title="Remove this Product">
                                     </form>
                                 </div>
                             </td>
                         </tr>
                         @endforeach
+                        {{ $products->links() }}     
                     </tbody>
             </table>
         </div>

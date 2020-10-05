@@ -30,7 +30,7 @@ class OrderController extends Controller
     public function index()
     {
         return view('order.index',[
-            'orders' => Order::all()
+            'orders' => Order::paginate(10)
         ]);
     }
 

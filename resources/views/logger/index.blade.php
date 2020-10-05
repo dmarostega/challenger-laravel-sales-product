@@ -6,6 +6,15 @@
     <div class="row">
         <div class="col-6 mt-5">
             <h1>@yield('subtitle')</h1>
+            <p class="ml-1">
+                Viewing
+                @if($logs->hasMorePages())
+                    {{ $logs->count() }}  
+                @else
+                    {{$logs->total()  }} 
+                @endif
+                    to  {{ $logs->total() }}    
+            </p>      
         </div>   
     </div>
     @if(    session('success')  )
@@ -38,7 +47,7 @@
                             {{ $log->message }} em {{ date('d/m/Y H:i:s',strtotime($log->created_at)) }}   
                         </p>  
                     @endforeach
-                                    
+                    {{ $logs->links() }}          
                 </div>
                 <div class="card-footer">
                     <small>Today: {{ date('d/m/Y H:i:s') }}</small>

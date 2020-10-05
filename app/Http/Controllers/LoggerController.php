@@ -18,7 +18,7 @@ class LoggerController extends Controller
         }
 
         return view('logger.index',[
-            'logs' => Logger::where('user_id','=',$user->id)->get(),
+            'logs' => Logger::where('user_id','=',$user->id)->paginate(10),
             'user' => $user
         ]);
     }

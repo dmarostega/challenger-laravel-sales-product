@@ -6,6 +6,15 @@
     <div class="row">
         <div class="col-6 mt-5">
             <h1>@yield('subtitle')</h1>
+            <p class="ml-1">
+                Viewing
+                @if($users->hasMorePages())
+                    {{ $users->count() }}  
+                @else
+                    {{$users->total()  }} 
+                @endif
+                    to  {{ $users->total() }}    
+            </p>        
         </div>
         <div class="col-6 mt-5">
             <a class="btn btn-primary float-right" href="{{ route('user.create') }}" >Create</a>
@@ -42,6 +51,7 @@
                         <th class="w-25" scope="col"></th>
                     </tr>
                     </thead>
+                   
                     <tbody>
                         @foreach($users as $user)
                         <tr>
@@ -65,8 +75,10 @@
                             </td>
                         </tr>
                         @endforeach
+                        {{ $users->links() }}
                     </tbody>
             </table>
+         
         </div>
     </div>
 @endsection

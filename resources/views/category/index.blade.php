@@ -6,6 +6,15 @@
     <div class="row">
         <div class="col-6 mt-5">
             <h1>@yield('subtitle')</h1>
+            <p class="ml-1">
+                Viewing
+                @if($categories->hasMorePages())
+                    {{ $categories->count() }}  
+                @else
+                    {{$categories->total()  }} 
+                @endif
+                    to  {{ $categories->total() }}    
+            </p>         
         </div>
         <div class="col-6 mt-5">
             <a class="btn btn-primary float-right" href="{{ route('category.create') }}" >Create</a>
@@ -40,7 +49,7 @@
                         <th scope="col">Updated</th>
                         <th class="w-25" scope="col"></th>
                     </tr>
-                    </thead>
+                    </thead>                  
                     <tbody>
                         @foreach($categories as $category)
                         <tr>
@@ -50,13 +59,13 @@
                             <td>{{ date('d/m/Y', strtotime($category->updated_at)) }}</td>
                             <td>
                                 <div class="float-right">
-                                    <a class="btn btn-sm btn-secondary" href="{{ route('category.show',['category'=>$category->id]) }}">View</a>
-                                    <a class="btn btn-sm btn-primary" href="{{ route('category.edit',['category'=>$category->id]) }}">Edit</a>
-                                    <form style="display: inline-block" action="{{ route('category.destroy',['category'=>$category->id]) }}" method="post">
+                                    <a class="btn btn-sm btn-secondary" href="{{ route('category.show',['category'=>$category->id]) }}" title="View details this User">View</a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('category.edit',['category'=>$category->id]) }}" title="Edit this User">Edit</a>
+                                    <form style="display: inline-block" action="{{ route('category.destroy',['category'=>$category->id]) }}" method="post" >
                                         @csrf
                                         @method('delete')
                                         <input type="hidden" name="category" value="{{$category->id }}">
-                                        <input class="btn btn-sm btn-danger" type="submit" value="Remove">
+                                        <input class="btn btn-sm btn-danger" type="submit" value="X" title="Remove this Category">
                                     </form>
                                 </div>
                             </td>
