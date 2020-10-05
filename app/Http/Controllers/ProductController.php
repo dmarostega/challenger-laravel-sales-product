@@ -89,9 +89,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        // dd($product->category_id);
+
         return view('product.edit',[
             'product' => $product,
-            'categories' => Category::all()
+            'categories' => Category::all()//->whereNull('deleted_at')
         ]);
     }
 

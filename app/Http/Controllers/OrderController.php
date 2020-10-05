@@ -21,7 +21,7 @@ class OrderController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +46,7 @@ class OrderController extends Controller
         
         if($cart === null){
             $cart = new Cart();
-            $cart->user_id = User::find(    Auth::user()->id  )->first()->id;
+            $cart->user_id = Auth::user()->id;
             $cart->save();
             Log::create($cart,'');
         }        
@@ -74,7 +74,9 @@ class OrderController extends Controller
             $order->cart_id = $cart->id;
             $order->user_id = $cart->user_id;
             $order->save();
-            Log::create($order,"(Cart n {cart->id})" );
+
+            Log::create($order,"(Cart n {$cart->id})" );
+
             foreach($cart->Itens()->get() as $item){
                $product = Product::where('id','=',$item->product_id)->first();
                $product->quantity -= $item->quantity;
@@ -84,7 +86,9 @@ class OrderController extends Controller
             $cart->done = Carbon::now();
             $cart->save();
             
-            Mail::to($request->user())->send(new OrderShipped($order));
+            Mail::to($request->user())
+                // ->cc('rodrigo@multiplier.com.br')
+                ->send(new OrderShipped($order));
 
             return redirect()->route('order.index');
         }
@@ -128,7 +132,7 @@ class OrderController extends Controller
                 }
             }   
 
-            Log::remove($order,"(Cart n {cart->id})" );
+            Log::remove($order,"(Cart n {$cart->id})" );
             return redirect()->route('order.index')->with(['success'=>"Ordem n. {$order->id} excluída com sucesso!"]);
         }
         return redirect()->route('order.index')->with(['fail'=>'Excusão não permitida!']);

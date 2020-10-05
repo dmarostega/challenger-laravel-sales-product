@@ -9,20 +9,24 @@
     </head>
     <body>     
         <nav class="navbar  navbar-expand-lg  navbar-dark bg-primary shadow-sm">
-            <a class="navbar-brand" href="#">@yield('title')</a>
+            <a class="navbar-brand" href="{{ route('init') }}">@yield('title')</a>
             @guest
           
             @else
                 <ul class="navbar-nav  mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('order.index') }}">Pedidos</a>
+                        <a class="nav-link" href="{{ route('order.index') }}">Orders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="{{ route('category.index') }}">Categorias</a>
+                        <a class="nav-link " href="{{ route('category.index') }}">Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('product.index') }}">Produtos</a>
+                        <a class="nav-link" href="{{ route('product.index') }}">Products</a>
+                    </li>                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.index') }}">Users</a>
                     </li>
+
                 </ul>
             @endguest
 
@@ -49,7 +53,9 @@
                                              document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-
+                            <a href="{{ route('logger.index') }}"  class="dropdown-item"  > 
+                               {{ __('My Logs!')}}
+                            </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>

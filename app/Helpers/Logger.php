@@ -21,33 +21,33 @@ class Log{
         self::$register->save();
     }
 
-    public static function add($obj,$field = 'name'){
+    public static function add($obj,$fieldOrString = 'name'){
         $name = explode('\\',get_class($obj)) ;
         $name = end($name);
 
-        self::in('ADD',"Added $name:  {$obj->id}, ".  ( isset( $obj->{$field} ) ? $obj->{$field} : $field) );
+        self::in('ADD',"Added $name:  {$obj->id}, ".  ( isset( $obj->{$fieldOrString} ) ? $obj->{$fieldOrString} : $fieldOrString) );
     }
 
-    public static function create($obj,$field = 'name'){
+    public static function create($obj,$fieldOrString = 'name'){
         $name = explode('\\',get_class($obj)) ;
         $name = end($name);
 
-        self::in('CREATE',"Created $name:  {$obj->id}, ".  ( isset( $obj->{$field} ) ? $obj->{$field} : $field) );
+        self::in('CREATE',"Created $name:  {$obj->id}, ".  ( isset( $obj->{$fieldOrString} ) ? $obj->{$fieldOrString} : $fieldOrString) );
     }
 
-    public static function edit($obj,$field = 'name'){
+    public static function edit($obj,$fieldOrString = 'name'){
         $name = explode('\\',get_class($obj)) ;
         $name = end($name);
 
-        self::in('EDIT',"Edited $name:  {$obj->id}, ".  ( isset( $obj->{$field} ) ? $obj->{$field} : $field) );
+        self::in('EDIT',"Edited $name:  {$obj->id}, ".  ( isset( $obj->{$fieldOrString} ) ? $obj->{$fieldOrString} : $fieldOrString) );
     }
 
     
-    public static function remove($obj,$field = 'name'){
+    public static function remove($obj,$fieldOrString = 'name'){
         $name = explode('\\',get_class($obj)) ;
         $name = end($name);
 
-        self::in('REMOVE',"Removed $name:  {$obj->id}, ".  ( isset( $obj->{$field} ) ? $obj->{$field} : $field) );
+        self::in('REMOVE',"Removed $name:  {$obj->id}, ".  ( isset( $obj->{$fieldOrString} ) ? $obj->{$fieldOrString} : $fieldOrString) );
     }
     
 }

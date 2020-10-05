@@ -87,10 +87,10 @@
                                         @endphp
                                     </td>
                                     <td>
-                                        {{ $item->Product()->first()->price }}
+                                        {{  number_format($item->Product()->first()->price,2,',','.') }}
                                     </td>
                                     <td>
-                                        {{ $item->Product()->first()->price *  $item->quantity  }}                                       
+                                        {{  number_format($item->Product()->first()->price *  $item->quantity,2,',','.')  }} 
                                         @php
                                             $sum += $item->Product()->first()->price *  $item->quantity;
                                         @endphp
@@ -118,7 +118,7 @@
                         {{-- <a href="{{ route('order.finalize') }}" class="btn btn-primary">Finalizar Compra</a> --}}
                         <form action="{{ route('order.store') }}" method="post" >
                             @csrf                            
-                            <button type="submit" class="btn btn-primary" >Finalizar Compra</button>
+                            <button type="submit" class="btn btn-primary" >Check Out</button>
                         </form>
                     </div>                    
                     <div class="col-3 ">
