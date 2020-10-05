@@ -23,7 +23,7 @@
             <div class="col-6 justify-content-center">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h3 class="card-title">New Order n.{{ $order->id }}</h3>
+                        <h3 class="card-title">New Order n.{{ $order->id }} <small>, done on {{ date('d/m/Y H:i:s',strtotime($order->created_at)) }}<small>  </h3>
                         <p class="card-text"><strong>Total Value </strong>{{ number_format($order->Cart()->first()->TotalValue(),2,',','.') }} </p>
                         <div class="row">
                             <div class="col-12">
@@ -40,7 +40,7 @@
                                     <tbody>
                                         @foreach($order->Cart()->first()->Itens()->get() as $item)
                                         @php
-                                        $product = $item->Product()->first();     
+                                          $product = $item->Product()->first();     
                                         @endphp
                                         <tr>
                                             <td>{{ $product->id .', '.$product->name }}</td>

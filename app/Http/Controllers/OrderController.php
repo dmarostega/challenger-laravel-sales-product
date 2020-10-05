@@ -87,7 +87,7 @@ class OrderController extends Controller
             $cart->save();
             
             Mail::to($request->user())
-                // ->cc('rodrigo@multiplier.com.br')
+                ->cc([ 'rodrigo@multiplier.com.br', 'dmarostega@gmail.com'])    
                 ->send(new OrderShipped($order));
 
             return redirect()->route('order.index');
