@@ -13,7 +13,7 @@ O Sistema
 8. Listagens com Paginação.
 
 Recursos Utilizados:
-1. Laravel 7.27
+1. Laravel 7.27 com Migrations
 2. Boostrap via CDN
 
 Ambiente de Desenvolvimento
