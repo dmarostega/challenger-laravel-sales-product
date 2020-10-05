@@ -22,8 +22,19 @@
             @error('email')
                 <small class="alert text-danger">{{ $message }}</small>
             @enderror
-        </div>        
-       <div class="row justify-content-end">
+        </div>   
+        <div class="form-group">
+            <input type="password"
+                class="form-control  @error('password') is-invalid @enderror" name="password" id="password" aria-describedby="helpId" placeholder="Password">
+                @error('password')
+                    <small class="alert text-danger">{{ $message }}</small>
+                @enderror
+        </div>  
+        <div class="form-group">
+        <input type="password"
+            class="form-control" name="password_confirmation" id="password-confirm" aria-describedby="helpId" placeholder="">
+        </div>           
+        <div class="row justify-content-end">
             <div class="btn-group mr-5 mb-3" role="group" aria-label="Basic example">
                 <button class="btn btn-success " type="submit">Save</button>
                 <a class="btn btn-secondary " href="{{ route('user.index') }}">To List</a>

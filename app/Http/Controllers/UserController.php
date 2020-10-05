@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -30,6 +31,26 @@ class UserController extends Controller
         return view('user.create');
     }
 
+    public function store(Request $request){
+        $request->validate([
+            'name' => ['required','string'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']            
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        if($user->email  !== $request->email){
+            $user->email = $request->email;
+        }
+
+        $user->password =  Hash::make($request->password);
+
+        if($user->save()){
+            return redirect()->route('user.index')->with(['success' => "Usuário {$user->name} cadastrado com sucesso!"]);
+        }
+        return redirect()->route('user.index')->with(['fail' => "Não foi possível Cadastrar Usuário Usuário {$user->name}!"]);
+    }
     
 
 
@@ -60,7 +81,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('user.index')->with(['fail' => 'Sem permissão para editar Usuário!!']);
+        return redirect()->route('user.index')->with(['fail' => "Sem permissão para editar Usuário  {$user->name}!!"]);
     }
 
     /**
@@ -72,12 +93,6 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        /**$validator = Validator::make($request->all(), [
-            'name' => ['required','string'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email']
-        ]);
-        if(!$validator->fails()){
-        }*/
 
         $request->validate([
             'name' => ['required','string'],
@@ -91,7 +106,7 @@ class UserController extends Controller
         if($user->save()){
             return redirect()->route('user.index')->with(['success' => "Usuário {$user->name} salvo com sucesso!"]);
         }
-        return redirect()->route('user.index')->with(['fail' => 'Não foi possível salvar Usuário!']);
+        return redirect()->route('user.index')->with(['fail' => "Não foi possível salvar Usuário {$user->name}!"]);
     }
 
     /**
@@ -106,7 +121,6 @@ class UserController extends Controller
            $user->delete();
            Auth::logout();           
         }
-
         return redirect()->route('user.index')->with(['fail' => 'Sem permissão para Excluir esse usuário!!']);
     }
 }
