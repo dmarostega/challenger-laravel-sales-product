@@ -9,11 +9,11 @@
             <p class="ml-1">
                 Viewing
                 @if($logs->hasMorePages())
-                    {{ $logs->count() }}  
+                    {{ $logs->currentPage() * $logs->count() }}
                 @else
-                    {{$logs->total()  }} 
+                    {{ $logs->total() }}
                 @endif
-                    to  {{ $logs->total() }}    
+                to {{ $logs->total() }}
             </p>      
         </div>   
     </div>
@@ -55,8 +55,8 @@
             </div>
             <div class="row m-3">
                 <div class="col-12 ">
-                    <a class="btn btn-secondary btn-sm float-right" href="{{ route('init') }}">
-                        Init
+                    <a class="btn btn-secondary btn-sm float-right" href="{{ route('user.index') }}">
+                        Users
                     </a>
                 </div>
             </div>

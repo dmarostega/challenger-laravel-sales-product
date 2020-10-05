@@ -9,12 +9,12 @@
             <p class="ml-1">
                 Viewing
                 @if($products->hasMorePages())
-                    {{ $products->count() }}  
+                    {{ $products->currentPage() * $products->count() }}
                 @else
-                    {{$products->total()  }} 
+                    {{ $products->total() }}
                 @endif
-                    to  {{ $products->total() }}    
-            </p>         
+                to {{ $products->total() }}
+            </p>     
         </div>
         <div class="col-6 mt-5">
             <a class="btn btn-primary float-right" href="{{ route('product.create') }}" >Create</a>

@@ -9,12 +9,12 @@
             <p class="ml-1">
                 Viewing
                 @if($categories->hasMorePages())
-                    {{ $categories->count() }}  
+                    {{ $categories->currentPage() * $categories->count() }}
                 @else
-                    {{$categories->total()  }} 
+                    {{ $categories->total() }}
                 @endif
-                    to  {{ $categories->total() }}    
-            </p>         
+                to {{ $categories->total() }}
+            </p>              
         </div>
         <div class="col-6 mt-5">
             <a class="btn btn-primary float-right" href="{{ route('category.create') }}" >Create</a>

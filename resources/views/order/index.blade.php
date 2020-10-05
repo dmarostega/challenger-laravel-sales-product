@@ -9,12 +9,12 @@
             <p class="ml-1">
                 Viewing
                 @if($orders->hasMorePages())
-                    {{ $orders->count() }}  
+                    {{ $orders->currentPage() * $orders->count() }}
                 @else
-                    {{$orders->total()  }} 
+                    {{ $orders->total() }}
                 @endif
-                    to  {{ $orders->total() }}    
-            </p>            
+                to {{ $orders->total() }}
+            </p>     
         </div>
         <div class="col-6 mt-5">
             <a class="btn btn-primary float-right" href="{{ route('order.create') }}" >New Order</a>          

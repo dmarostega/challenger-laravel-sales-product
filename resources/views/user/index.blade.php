@@ -9,11 +9,11 @@
             <p class="ml-1">
                 Viewing
                 @if($users->hasMorePages())
-                    {{ $users->count() }}  
+                    {{ $users->currentPage() * $users->count() }}
                 @else
-                    {{$users->total()  }} 
+                    {{ $users->total() }}
                 @endif
-                    to  {{ $users->total() }}    
+                to {{ $users->total() }}
             </p>        
         </div>
         <div class="col-6 mt-5">
