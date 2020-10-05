@@ -19,8 +19,8 @@ Recursos Utilizados:
 Ambiente de Desenvolvimento
 
 1. SO Win 10;
-2. WampServer Version 3.2.0 64bit
-2.1. Apache 2.4.41 Port 80- PHP 7.3.12
-2.2. MySQL 5.7.28 Port 3306
-3. VSCode  1.49.3
-4. Workbench 8.0.19
+2. WampServer Version 3.2.0 64bit;
+2.1. Apache 2.4.41 Port 80- PHP 7.3.12;
+2.2. MySQL 5.7.28 Port 3306;
+3. VSCode  1.49.3;
+4. Workbench 8.0.19.
