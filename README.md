@@ -1,6 +1,6 @@
 Challenger Multiplier
 
-Projeto idealizado como desafio para Empresa Multiplier de Jaraguá do Sul - SC. 'A cidade mais padifica do pais" Ouvi dizer.
+Projeto idealizado como desafio para vaga de emprego, na qual, trabelhei por quase 5 anos.
 
 O Sistema
 1. Registro de Usuário;
