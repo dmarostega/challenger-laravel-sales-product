@@ -1,6 +1,6 @@
 Challenger / Desafio
 
-Projeto idealizado como desafio para vaga de emprego, na qual, trabelhei por quase 5 anos.
+Projeto idealizado como desafio para vaga de emprego, na qual, trabalhei por quase 5 anos.
 
 O Sistema
 1. Registro de Usuário;
