@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Challenger Multiplier'),
+    'name' => env('APP_NAME', 'Products Sales Challenge'),
 
     /*
     |--------------------------------------------------------------------------
